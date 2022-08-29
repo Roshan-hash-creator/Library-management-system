@@ -48,13 +48,13 @@ $adminid = $_SESSION["adminid"];
                         <button type='button' class='btn btn-success' onclick="openpart('issuebookreport')">ISSUE
                             REPORT</button>
 
-                        <!-- <a href="index.php"> <button type="button"  class="bg-success">LOGOUT</button></a> -->
-
                         <button type="button" class="btn btn-success">
                             <a href="index.php" style="text-decoration: none;color: rgb(255, 255, 255);">LOGOUT</a>
                         </button>
                     </div>
                     <div class="col-7 ">
+
+                        <!-- ADD PERSON SECTION  -->
                         <div id="addperson" class="portion" style="display: none;">
                             <button type="button" class="btn col-12 mb-3 text-light"
                                 style="background-color: rgb(163, 163, 163);">ADD PERSON</button>
@@ -93,16 +93,116 @@ $adminid = $_SESSION["adminid"];
                                 </div>
 
                                 <div class="row">
-
-                                    <div class="col text-center ">
+                                    <div class="col text-center">
                                         <input type="submit" class="btn btn-primary col-2" value="SUBMIT"></input>
                                     </div>
                                 </div>
                             </form>
                         </div>
+                            <!-- End of Add Person Section  -->
 
-                        <div id="addbook" class="portion" style="display: none;"></div>
+                        <!-- ADD BOOK SECTION  -->
+                        <div class="row">
+                            <div id="addbook" class="portion" style="<?php
+                             if(!empty($_REQUEST['viewid']))
+                             { echo " display:none";} else { echo "" ;} ?>">
 
+                                <!-- ADD BOOK SECTION HEADING  -->
+                                <button type="button" class="btn col-12 mb-3 text-light"
+                                    style="background-color: rgb(163, 163, 163);">ADD NEW BOOK</button>
+                                <!-- BOOK SECTION CONTENT                                  -->
+                                <form action="addbook_server_page.php" method="post" enctype="multipart/form-data">
+
+                                    <div class="row mb-2">
+                                        <label class="col-sm-2 col-form-label">Book Name</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="bookName">
+                                        </div>
+                                    </div>
+                                    <div class="row mb-2">
+                                        <label class="col-sm-2 col-form-label">Detail</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="bookDetail">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-2">
+                                        <label class="col-sm-2 col-form-label">Author</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="bookAuthor">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-2">
+                                        <label class="col-sm-2 col-form-label">Publication</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" class="form-control" name="bookPub">
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <label class="col-sm-2 col-form-label">Branch</label>
+
+                                        <div class="col-sm-10 col-form-label">
+                                            <!-- IT BRANCH -->
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="branch" value="IT"
+                                                    id="itBranch">
+                                                <label class="form-check-label" for="itBranch">IT</label>
+                                            </div>
+                                            <!-- CIVIL BRANCH -->
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="branch" value="CIVIL"
+                                                    id="civilBranch">
+                                                <label class="form-check-label" for="civilBranch">CIVIL</label>
+                                            </div>
+                                            <!-- ECE BRANCH  -->
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="branch" value="ECE"
+                                                    id="eceBranch">
+                                                <label class="form-check-label" for="eceBranch">ECE</label>
+                                            </div>
+                                            <!-- ELECTRICAL BRANCH -->
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="branch"
+                                                    value="ELECTRICAL" id="electricalBranch">
+                                                <label class="form-check-label"
+                                                    for="electricalBranch">ELECTRICAL</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-2">
+                                        <label class="col-sm-2 col-form-label">Price</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" name="bookPrice">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-2">
+                                        <label class="col-sm-2 col-form-label">Quantity</label>
+                                        <div class="col-sm-10">
+                                            <input type="number" class="form-control" name="bookQuantity">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-2">
+                                        <label class="col-sm-2 col-form-label">Book Photo</label>
+                                        <div class="col-sm-10">
+                                            <input type="file" class="form-control" name="bookPhoto">
+                                        </div>
+                                    </div>
+
+                                    <div class="row pt-2">
+                                        <div class="col text-center">
+                                            <input type="submit" class="btn btn-primary col-2" value="SUBMIT"></input>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- End of Add Book Section  -->
+                        
                     </div>
                 </div>
 

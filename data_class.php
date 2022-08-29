@@ -57,4 +57,16 @@ class data extends db{
             header("Location:admin-service_dashboard.php?msg=Register Fail");
         }
     }
+
+    function addbook($bookPic, $bookName, $bookDetail,$bookAuthor, $bookPub, $branch, $bookPrice, $bookQuantity){
+        $this->bookPic = $bookPic;
+        $this->bookName = $bookName;
+        $this->bookDetail = $bookDetail;
+        $this->bookAuthor = $bookAuthor;
+        $this->bookPub = $bookPub;
+        $this->branch = $branch;
+        $this->bookPrice = $bookPrice;
+        $this->bookQuantity = $bookQuantity;
+    }
+
 }
