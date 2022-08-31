@@ -1,5 +1,7 @@
 <?php
 
+$successfulMsg = "";
+
 session_start();
 // asdf;lajsdf;lkj
 $adminid = $_SESSION["adminid"];
@@ -96,10 +98,11 @@ $adminid = $_SESSION["adminid"];
                                     <div class="col text-center">
                                         <input type="submit" class="btn btn-primary col-2" value="SUBMIT"></input>
                                     </div>
+
                                 </div>
                             </form>
                         </div>
-                            <!-- End of Add Person Section  -->
+                        <!-- End of Add Person Section  -->
 
                         <!-- ADD BOOK SECTION  -->
                         <div class="row">
@@ -197,17 +200,24 @@ $adminid = $_SESSION["adminid"];
                                         <div class="col text-center">
                                             <input type="submit" class="btn btn-primary col-2" value="SUBMIT"></input>
                                         </div>
+                                        <div class="alert alert-primary" role="alert">
+                                        <?php  echo $successfulMsg?>
+                                        </div>
                                     </div>
-                                </form>
                             </div>
+                            </form>
                         </div>
-                        <!-- End of Add Book Section  -->
-                        
                     </div>
-                </div>
+                    <!-- End of Add Book Section  -->
 
+                    <!-- BOOK REPORT  -->
+
+
+                </div>
             </div>
+
         </div>
+    </div>
     </div>
     </div>
 

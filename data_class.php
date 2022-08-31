@@ -58,15 +58,33 @@ class data extends db{
         }
     }
 
-    function addbook($bookPic, $bookName, $bookDetail,$bookAuthor, $bookPub, $branch, $bookPrice, $bookQuantity){
-        $this->bookPic = $bookPic;
-        $this->bookName = $bookName;
-        $this->bookDetail = $bookDetail;
-        $this->bookAuthor = $bookAuthor;
-        $this->bookPub = $bookPub;
-        $this->branch = $branch;
-        $this->bookPrice = $bookPrice;
-        $this->bookQuantity = $bookQuantity;
+    function addbook($bookPic, $bookName, $bookDetail, $bookAuthor, $bookPub, $branch, $bookPrice, $bookQuantity) {
+        
+        $this->$bookPic=$bookPic;
+        $this->bookName=$bookName;
+        $this->bookDetail=$bookDetail;
+        $this->bookAuthor=$bookAuthor;
+        $this->bookPub=$bookPub;
+        $this->branch=$branch;
+        $this->bookPrice=$bookPrice;
+        $this->bookQuantity=$bookQuantity;
+
+       $q="INSERT INTO book (id,bookpic,bookname, bookdetail, bookauthor, bookpub, branch, bookprice,bookquantity,bookava,bookrent)VALUES('','$bookPic', '$bookName', '$bookDetail', '$bookAuthor', '$bookPub', '$branch', '$bookPrice', '$bookQuantity','$bookQuantity',0)";
+
+        if($this->connection->exec($q)) {
+            header("Location:admin_service_dashboard.php?successfulMsg=Book Added Successfully...");
+        }
+
+        else {
+            header("Location:admin_service_dashboard.php?msg=fail");
+        }
+
+    }
+
+    function issuereport(){
+        $q="SELECT * FROM issuebook ";
+        $data = $this->connection->query($q);
+        return $data;
     }
 
 }
