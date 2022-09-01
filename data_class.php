@@ -81,10 +81,20 @@ class data extends db{
 
     }
 
-    function issuereport(){
-        $q="SELECT * FROM issuebook ";
+    function userdata(){
+        $q="SELECT * FROM userdata ";
         $data = $this->connection->query($q);
         return $data;
     }
 
+    // DELETE FUNCTION 
+    function deleteUserData($id){
+        $q = "DELETE from userdata where id='$id'";
+        if($this->connection->exec($q)){
+            header("Location:admin_service_dashboard.php?msg=Deleted");
+        }
+        else{
+            header("Location:admin_service_dashboard.php?msg=failed to delete");
+        }
+    }
 }
