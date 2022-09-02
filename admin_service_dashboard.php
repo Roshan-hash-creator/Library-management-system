@@ -36,10 +36,10 @@ $adminid = $_SESSION["adminid"];
             <!-- BUTTON SECTION -->
             <div class="row mt-3 d-flex justify-content-center pt-2">
                 <div class="col-2 d-flex flex-column gap-2">
-                    <button type='button' class='btn btn-success' onclick="openpart('admin')">ADMIN</button>
+                    <button type='button' class='btn btn-success'>ADMIN</button>
                     <button type='button' class='btn btn-success' onclick="openpart('addbook')">ADD BOOK</button>
-                    <button type='button' class='btn btn-success' onclick="openpart('bookreport')">BOOK
-                        REPORT</button>
+                    <button type='button' class='btn btn-success' onclick="openpart('bookrecord')">BOOK
+                        RECORD</button>
                     <button type='button' class='btn btn-success' onclick="openpart('bookrequestapprove')">BOOK
                         REQUEST</button>
                     <button type='button' class='btn btn-success' onclick="openpart('addperson')">ADD
@@ -126,7 +126,7 @@ $adminid = $_SESSION["adminid"];
                                         <input type="text" class="form-control" name="bookName">
                                     </div>
                                 </div>
-                                
+
                                 <div class="row mb-2">
                                     <label class="col-sm-2 col-form-label">Detail</label>
                                     <div class="col-sm-10">
@@ -217,11 +217,9 @@ $adminid = $_SESSION["adminid"];
                     <!-- End of Add Book  -->
 
                     <!-- STUDENT REPORT  -->
-                    <div class="row">
-                        <div id="studentrecord" class="portion" style="display: none">
-                            <button type="button" class="btn col-12 mb-3 text-light"
-                                style="background-color: rgb(163, 163, 163);">STUDENT REPORT</button>
-                        </div>
+                    <div id="studentrecord" class="portion" style="display: none">
+                        <button type="button" class="btn col-12 mb-3 text-light"
+                            style="background-color: rgb(163, 163, 163);">STUDENT REPORT</button>
 
                         <?php
                         $u= new data;
@@ -233,13 +231,13 @@ $adminid = $_SESSION["adminid"];
                         $table="
                         <table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'>
                         <tr>
-                            <th> Name </th>
-                            <th> Email </th>
+                        <th> Name </th>
+                        <th> Email </th>
                             <th> Type </th>
                             <th> Delete </th>
                         </tr>
                         ";
-
+                        
                         foreach($recordset as $row){
                             $table.="<tr>";
                             "<td>$row[0]</td>";
@@ -248,7 +246,7 @@ $adminid = $_SESSION["adminid"];
                             $table.="<td>$row[4]</td>";
                             $table.="<td>
                             <a href='deleteuser.php?useriddelete=$row[0]'> <button type='button' class='btn btn-outline-danger'>Delete  </button> </a>
-
+                            
                             </td>";
                             
                             $table.="</tr>";
@@ -263,17 +261,136 @@ $adminid = $_SESSION["adminid"];
                     <!-- End of Student Report  -->
 
                     <!-- BOOK REPORT  -->
+                    <div id="bookrecord" class="portion" style="display:none">
+                        <button type="button" class="btn col-12 mb-3 text-light"
+                            style="background-color: rgb(163, 163, 163);">BOOK RECORD</button>
+                        <?php
+                            $u=new data;
+                            $u->setconnection();
+                            $u->getbook();
+                            $recordset=$u->getbook();
+
+                            $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'> 
+                            <tr>
+                                <th style ='padding: 8px 8px 8px 0px;'> Book Name </th>
+                                <th>Price</th>
+                                <th>Qnt</th>
+                                <th>Available</th>
+                                <th>Rent</th>
+                                <th>View</th>
+                                <th>Delete</th>
+                            </tr>";
+
+                                foreach($recordset as $row){
+                                    $table.="<tr>";
+                                        "<td>$row[0]</td>";
+                                        $table.="<td>$row[2]</td>";
+                                        $table.="<td>$row[7]</td>";
+                                        $table.="<td>$row[8]</td>";
+                                        $table.="<td>$row[9]</td>";
+                                        $table.="<td>$row[10]</td>";
+
+                                        $table.="<td>
+                                            <a href='admin_service_dashboard.php?viewid=$row[0]' style='text-decoration: none'>
+                                                View Book
+                                            </a>
+                                        </td>";
+
+                                        $table.="
+                                        <td>
+                                            <a href='deletebook_dashboard.php?deletebookid=$row[0]'>
+                                            <button type='button' class='btn btn-outline-danger'>Delete  </button>
+                                            </a>
+                                        </td>";
+
+                                    $table.="</tr>";
+                                        $table.=$row[0];
+                                }
+                                        $table.="</table>";
+
+                                        echo $table;
+                                        ?>
+
+                    </div>
+
+                    <!-- End of Book Report  -->
+
+                    <!-- BOOK DETAILS  -->
+                    <div id="bookdetail" class="innerright portion"
+                        style="<?php  if(!empty($_REQUEST['viewid'])){ $viewid=$_REQUEST['viewid'];} else {echo "
+                        display:none"; }?>">
+
+                        <Button class="greenbtn">BOOK DETAIL</Button>
+                        </br>
+                        <?php
+                            $u=new data;
+                            $u->setconnection();
+                            $u->getbookdetail($viewid);
+                            $recordset=$u->getbookdetail($viewid);
+
+                            foreach($recordset as $row){
+                                    $bookid= $row[0];
+                                    $bookimg= $row[1];
+                                    $bookname= $row[2];
+                                    $bookdetail= $row[3];
+                                    $bookauthour= $row[4];
+                                    $bookpub= $row[5];
+                                    $branch= $row[6];
+                                    $bookprice= $row[7];
+                                    $bookquantity= $row[8];
+                                    $bookava= $row[9];
+                                    $bookrent= $row[10];
+                                }            
+                        ?>
+
+                        <img width='150px' height='150px' style='border:1px solid #333333; float:left;margin-left:20px'
+                            src="uploads/<?php echo $bookimg?> " />
+                        </br>
+                        <p style="color:black"><u>Book Name:</u> &nbsp&nbsp
+                            <?php echo $bookname ?>
+                        </p>
+                        <p style="color:black"><u>Book Detail:</u> &nbsp&nbsp
+                            <?php echo $bookdetail ?>
+                        </p>
+                        <p style="color:black"><u>Book Authour:</u> &nbsp&nbsp
+                            <?php echo $bookauthour ?>
+                        </p>
+                        <p style="color:black"><u>Book Publisher:</u> &nbsp&nbsp
+                            <?php echo $bookpub ?>
+                        </p>
+                        <p style="color:black"><u>Book Branch:</u> &nbsp&nbsp
+                            <?php echo $branch ?>
+                        </p>
+                        <p style="color:black"><u>Book Price:</u> &nbsp&nbsp
+                            <?php echo $bookprice ?>
+                        </p>
+                        <p style="color:black"><u>Book Available:</u> &nbsp&nbsp
+                            <?php echo $bookava ?>
+                        </p>
+                        <p style="color:black"><u>Book Rent:</u> &nbsp&nbsp
+                            <?php echo $bookrent ?>
+                        </p>
 
 
-                    <!-- End of Book Report -->
-
-
-
+                    </div>
 
 
                 </div>
             </div>
+
+
+            <!-- BOOK REPORT  -->
+
+
+            <!-- End of Book Report -->
+
+
+
+
+
         </div>
+    </div>
+    </div>
 
     </div>
 
