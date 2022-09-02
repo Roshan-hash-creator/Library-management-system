@@ -87,6 +87,19 @@ class data extends db{
         return $data;
     }
 
+    function getbook(){
+        $q="SELECT * FROM book ";
+        $data = $this->connection->query($q);
+        return $data;
+    }
+    
+    function getbookdetail($id){
+        $q="SELECT * FROM book where id = '$id' ";
+        $data = $this->connection->query($q);
+        return $data;
+    }
+
+
     // DELETE FUNCTION 
     function deleteUserData($id){
         $q = "DELETE from userdata where id='$id'";
