@@ -99,6 +99,28 @@ class data extends db{
         return $data;
     }
 
+    function getbookissue() {
+        $q = "SELECT * FROM book where bookava !=0 ";
+        $data = $this->connection->query($q);
+        return $data;
+    }
+
+    function issuebook($book,$userselect,$days,$getdate,$returnDate ){
+        $this-> $book = $book;
+        $this-> $userSelect = $userselect;
+        $this-> $days = $days;
+        $this-> $getdate = $getdate;
+        $this-> $returnDate = $returnDate;
+
+        $q = "SELECT * FROM book where bookname = '$book'";
+        $recordSets = $this->connection->query($q);
+
+        $q = "SELECT * FROM userdata where name = '$userselect'";
+        $recordSet= $this->connection->query($q);
+        $result=$recordSet->rowCount();
+
+    }
+
 
     // DELETE FUNCTION 
     function deleteUserData($id){

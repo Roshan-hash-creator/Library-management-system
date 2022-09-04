@@ -23,8 +23,7 @@ if(!empty($_REQUEST['msg'])){
 }
 
 
-
-
+$disspear = "<h4 class ='autovanish'>$msg</h4>;"
 
 
 ?>
@@ -52,9 +51,11 @@ if(!empty($_REQUEST['msg'])){
 
     <div class="container login-container">
         <div class="row">
-            <h4>
-                <?php echo $msg?>
-            </h4>
+
+            <?php
+           echo $disspear;
+           ?>
+
         </div>
         <div class="row">
             <div class="col-md-6 login-form-1">
@@ -69,7 +70,9 @@ if(!empty($_REQUEST['msg'])){
                         <input type="password" class="form-control" name="login_pasword" placeholder="Your Password *"
                             value="" />
                     </div>
-                    <Label style="color:red">*<?php echo $pasdmsg?></label>
+                    <Label style="color:red">*
+                        <?php echo $pasdmsg?>
+                    </label>
                     <div class="form-group">
                         <input type="submit" class="btnSubmit" value="Login" />
                     </div>
@@ -82,12 +85,16 @@ if(!empty($_REQUEST['msg'])){
                         <input type="text" class="form-control" name="login_email" placeholder="Your Email *"
                             value="" />
                     </div>
-                    <Label style="color:red">*<?php echo $ademailmsg?></label>
+                    <Label style="color:red">*
+                        <?php echo $ademailmsg?>
+                    </label>
                     <div class="form-group">
                         <input type="password" class="form-control" name="login_password" placeholder="Your Password *"
                             value="" />
                     </div>
-                    <Label style="color:red">*<?php echo $adpasdmsg?></label>
+                    <Label style="color:red">*
+                        <?php echo $adpasdmsg?>
+                    </label>
                     <div class="form-group">
                         <input type="submit" class="btnSubmit" value="Login" />
                     </div>
@@ -109,6 +116,19 @@ if(!empty($_REQUEST['msg'])){
     <script src="" async defer></script>
 
 
+
+    <script>
+
+        function autovanish() {
+            const avDivs = document.getElementsByClassName('autovanish');
+
+            setTimeout(function () {
+                avDivs[0].remove();
+            }, 2000); //removes the element after 3000ms
+
+            setTimeout(() => { autovanish(); }, 500); //re-run every 500ms   
+        }
+    </script>
 
     <!-- BOOTSTRAP JAVASCRIPT FILE  -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"

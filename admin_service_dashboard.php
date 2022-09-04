@@ -374,6 +374,54 @@ $adminid = $_SESSION["adminid"];
 
                     </div>
 
+                    <!-- ISSUE BOOK  -->
+                    <div id="issuebook" class="innerright portion" style="display:none">
+                    <button type="button" class="btn col-12 mb-3 text-light"
+                            style="background-color: rgb(163, 163, 163);">ISSUE BOOK</button>
+                        <form action="issuebook_server.php" method="post" enctype="multipart/form-data">
+                            <div class="d-flex align-items-center mb-3">
+                                
+                                <label for="book" class="col-2">Choose Book:</label>
+                                <select name="book" class="form-select ">
+                                    <option value="0" selected>Select Book</option>
+                                    <?php
+                                    $u=new data;
+                                    $u->setconnection();
+                                    $u->getbookissue();
+                                    $recordset=$u->getbookissue();
+                                    foreach($recordset as $row){
+                                        
+                                        echo "<option value='". $row[2] ."'>" .$row[2] ."</option>";
+                                        
+                                    }            
+                                    ?>
+                            </select>
+                            
+                            <label for="Select Student"> </label>
+                            <select name="userselect" class="form-select">
+                                <option value="1" selected>Select User</option>
+                                <?php
+                                    $u=new data;
+                                    $u->setconnection();
+                                    $u->userdata();
+                                    $recordset=$u->userdata();
+                                    foreach($recordset as $row){
+                                    $id= $row[0];
+                                        echo "<option value='". $row[1] ."'>" .$row[1] ."</option>";
+                                    }            
+                                    ?>
+                            </select>
+                        </div>
+                            <div class="mb-3 d-flex">
+                                <label class="col-2" >Days</label>
+                                <input class="col-4 form-control" style="box-sizing: border-box;" type="number" name="days" />
+
+                            </div>
+
+                            <input type="submit" class="btn btn-primary" value="SUBMIT" />
+                        </form>
+                    </div>
+
 
                 </div>
             </div>
