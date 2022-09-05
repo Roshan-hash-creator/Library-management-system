@@ -4,9 +4,9 @@
 
  $book = $_POST['book'];
  $userselect = $_POST['userselect'];
- $getdate = date("d/m/y");
+ $getdate = date("Y/m/d");
  $days = $_POST['days'];
- $returnDate = Date('d/m/y', strtotime('+'.$days.'days'));
+ $returnDate = Date('Y/m/d', strtotime('+'.$days.'days'));
 
  $obj = new data();
  $obj->setconnection();
