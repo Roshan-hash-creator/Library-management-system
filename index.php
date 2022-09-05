@@ -78,6 +78,7 @@ $disspear = "<h4 class ='autovanish'>$msg</h4>;"
                     </div>
                 </form>
             </div>
+
             <div class="col-md-6 login-form-2">
                 <h3>Admin Login</h3>
                 <form action="loginadmin_server_page.php" method="get">

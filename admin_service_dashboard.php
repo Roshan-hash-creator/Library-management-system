@@ -374,13 +374,45 @@ $adminid = $_SESSION["adminid"];
 
                     </div>
 
+                    <!-- ISSUE BOOK REPORT  -->
+                    <div id="issuebookreport" class="portion" style="display:none">
+                        <button type="button" class="btn col-12 mb-3 text-light"
+                            style="background-color: rgb(163, 163, 163);">ISSUED BOOK </button>
+                        <?php
+                                $u=new data;
+                                $u->setconnection();
+                                $u->issuereport();
+                                $recordset=$u->issuereport();
+
+                                $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'><tr><th style='padding: 8px; padding-left: 0px;'>Issue Name</th><th>Book Name</th><th>Issue Date</th><th>Return Date</th><th>Fine</th></th><th>Issue Type</th></tr>";
+
+                                foreach($recordset as $row){
+                                    $table.="<tr>";
+                                "<td>$row[0]</td>";
+                                    $table.="<td>$row[2]</td>";
+                                    $table.="<td>$row[3]</td>";
+                                    $table.="<td>$row[6]</td>";
+                                    $table.="<td>$row[7]</td>";
+                                    $table.="<td>$row[8]</td>";
+                                    $table.="<td>$row[4]</td>";
+                                    // $table.="<td><a href='otheruser_dashboard.php?returnid=$row[0]&userlogid=$userloginid'>Return</a></td>";
+                                    $table.="</tr>";
+                                    // $table.=$row[0];
+                                }
+                                $table.="</table>";
+
+                                echo $table;
+                                ?>
+
+                    </div>
+
                     <!-- ISSUE BOOK  -->
-                    <div id="issuebook" class="innerright portion" style="display:none">
-                    <button type="button" class="btn col-12 mb-3 text-light"
+                    <div id="issuebook" class="portion" style="display:none">
+                        <button type="button" class="btn col-12 mb-3 text-light"
                             style="background-color: rgb(163, 163, 163);">ISSUE BOOK</button>
                         <form action="issuebook_server.php" method="post" enctype="multipart/form-data">
                             <div class="d-flex align-items-center mb-3">
-                                
+
                                 <label for="book" class="col-2">Choose Book:</label>
                                 <select name="book" class="form-select ">
                                     <option value="0" selected>Select Book</option>
@@ -395,12 +427,12 @@ $adminid = $_SESSION["adminid"];
                                         
                                     }            
                                     ?>
-                            </select>
-                            
-                            <label for="Select Student"> </label>
-                            <select name="userselect" class="form-select">
-                                <option value="1" selected>Select User</option>
-                                <?php
+                                </select>
+
+                                <label for="Select Student"> </label>
+                                <select name="userselect" class="form-select">
+                                    <option value="1" selected>Select User</option>
+                                    <?php
                                     $u=new data;
                                     $u->setconnection();
                                     $u->userdata();
@@ -410,11 +442,12 @@ $adminid = $_SESSION["adminid"];
                                         echo "<option value='". $row[1] ."'>" .$row[1] ."</option>";
                                     }            
                                     ?>
-                            </select>
-                        </div>
+                                </select>
+                            </div>
                             <div class="mb-3 d-flex">
-                                <label class="col-2" >Days</label>
-                                <input class="col-4 form-control" style="box-sizing: border-box;" type="number" name="days" />
+                                <label class="col-2">Days</label>
+                                <input class="col-4 form-control" style="box-sizing: border-box;" type="number"
+                                    name="days" />
 
                             </div>
 
@@ -422,6 +455,39 @@ $adminid = $_SESSION["adminid"];
                         </form>
                     </div>
 
+                    <!-- BOOK REQUREST APPROVE  -->
+                    <div id="bookrequestapprove" class="portion" style="display:none">
+                        <button type="button" class="btn col-12 mb-3 text-light"
+                            style="background-color: rgb(163, 163, 163);">BOOK REQUEST APPROVE</button>
+                        <?php
+                        $u=new data;
+                        $u->setconnection();
+                        $u->requestbookdata();
+                        $recordset=$u->requestbookdata();
+
+                        $table="<table style='font-family: Arial, Helvetica, sans-serif;border-collapse: collapse;width: 100%;'><tr><th style='padding: 8px 8px 8px 0px;'>Person Name</th><th>person type</th><th>Book name</th><th>Days </th><th>Approve</th></tr>";
+                        foreach($recordset as $row){
+                            $table.="<tr>";
+                        "<td>$row[0]</td>";
+                        "<td>$row[1]</td>";
+                        "<td>$row[2]</td>";
+
+                            $table.="<td>$row[3]</td>";
+                            $table.="<td>$row[4]</td>";
+                            $table.="<td>$row[5]</td>";
+                            $table.="<td>$row[6]</td>";
+                        // $table.="<td><a href='approvebookrequest.php?reqid=$row[0]&book=$row[5]&userselect=$row[3]&days=$row[6]'><button type='button' class='btn btn-primary'>Approved BOOK</button></a></td>";
+                            $table.="<td><a href='approvebookrequest.php?reqid=$row[0]&book=$row[5]&userselect=$row[3]&days=$row[6]'>Approved</a></td>";
+                            // $table.="<td><a href='deletebook_dashboard.php?deletebookid=$row[0]'>Delete</a></td>";
+                            $table.="</tr>";
+                            // $table.=$row[0];
+                        }
+                        $table.="</table>";
+
+                        echo $table;
+                        ?>
+
+            </div>
 
                 </div>
             </div>

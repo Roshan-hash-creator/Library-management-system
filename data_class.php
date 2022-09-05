@@ -107,7 +107,7 @@ class data extends db{
 
     function issuebook($book,$userselect,$days,$getdate,$returnDate ){
         $this-> $book = $book;
-        $this-> $userSelect = $userselect;
+        $this-> $userselect = $userselect;
         $this-> $days = $days;
         $this-> $getdate = $getdate;
         $this-> $returnDate = $returnDate;
@@ -119,6 +119,114 @@ class data extends db{
         $recordSet= $this->connection->query($q);
         $result=$recordSet->rowCount();
 
+        if($result > 0){
+
+            foreach($recordSet->fetchAll() as $row){
+                $issueid = $row['id'];
+                $issuetype = $row['type'];
+
+                // header("location: admin_service_dashboard.php?logid=$logid");
+            }
+            foreach($recordSets->fetchAll() as $row){
+                $bookid = $row['id'];
+                $bookname = $row['bookname'];
+
+                $newbookava= $row['bookava'] -1;
+                $newbookrent= $row['bookrent'] +1;
+            }
+
+            $q = "UPDATE book SET bookava = '$newbookava', bookrent='$newbookrent' where id = '$bookid'";
+            if($this->connection->exec($q)){
+
+                $q="INSERT INTO issuebook (userid,issuename,issuebook,issuetype,issuedays,issuedate,issuereturn,fine)VALUES('$issueid','$userselect','$book','$issuetype','$days','$getdate','$returnDate','0')";
+    
+                if($this->connection->exec($q)) {
+    
+                    // $q="DELETE from requestbook where id='$redid'";
+                    // $this->connection->exec($q);
+                    // header("Location:admin_service_dashboard.php?msg=done");
+                }
+        
+                else {
+                    header("Location:admin_service_dashboard.php?msg=fail");
+                }
+                }
+                else{
+                   header("Location:admin_service_dashboard.php?msg=fail");
+                }
+        }
+
+    }
+
+    function issuereport(){
+        $q="SELECT * FROM issuebook ";
+        $data=$this->connection->query($q);
+        return $data;
+        
+    }
+    function requestbookdata(){
+        $q="SELECT * FROM requestbook ";
+        $data=$this->connection->query($q);
+        return $data;
+    }
+
+    // issue issuebookapprove
+    function issuebookapprove($book,$userselect,$days,$getdate,$returnDate,$redid){
+        $this->$book= $book;
+        $this->$userselect=$userselect;
+        $this->$days=$days;
+        $this->$getdate=$getdate;
+        $this->$returnDate=$returnDate;
+
+
+        $q="SELECT * FROM book where bookname='$book'";
+        $recordSetss=$this->connection->query($q);
+
+        $q="SELECT * FROM userdata where name='$userselect'";
+        $recordSet=$this->connection->query($q);
+        $result=$recordSet->rowCount();
+
+        if ($result > 0) {
+
+            foreach($recordSet->fetchAll() as $row) {
+                $issueid=$row['id'];
+                $issuetype=$row['type'];
+
+                // header("location: admin_service_dashboard.php?logid=$logid");
+            }
+            foreach($recordSetss->fetchAll() as $row) {
+                $bookid=$row['id'];
+                $bookname=$row['bookname'];
+
+                    $newbookava=$row['bookava']-1;
+                     $newbookrent=$row['bookrent']+1;
+            }
+
+        
+            $q="UPDATE book SET bookava='$newbookava', bookrent='$newbookrent' where id='$bookid'";
+            if($this->connection->exec($q)){
+
+            $q="INSERT INTO issuebook (userid,issuename,issuebook,issuetype,issuedays,issuedate,issuereturn,fine)VALUES('$issueid','$userselect','$book','$issuetype','$days','$getdate','$returnDate','0')";
+
+            if($this->connection->exec($q)) {
+
+                $q="DELETE from requestbook where id='$redid'";
+                $this->connection->exec($q);
+                header("Location:admin_service_dashboard.php?msg=done");
+            }
+    
+            else {
+                header("Location:admin_service_dashboard.php?msg=fail");
+            }
+            }
+            else{
+               header("Location:admin_service_dashboard.php?msg=fail");
+            }
+        }
+
+        else {
+            header("location: index.php?msg=Invalid Credentials");
+        }
     }
 
 
@@ -131,5 +239,26 @@ class data extends db{
         else{
             header("Location:admin_service_dashboard.php?msg=failed to delete");
         }
+    }
+
+    
+    // USERLOGIN 
+
+    function userLogin($t1, $t2) {
+        $q="SELECT * FROM userdata where email='$t1' and pass='$t2'";
+        $recordSet=$this->connection->query($q);
+        $result=$recordSet->rowCount();
+        if ($result > 0) {
+
+            foreach($recordSet->fetchAll() as $row) {
+                $logid=$row['id'];
+                header("location: otheruser_dashboard.php?userlogid=$logid");
+            }
+        }
+
+        else {
+            header("location: index.php?msg=Invalid Credentials");
+        }
+
     }
 }
